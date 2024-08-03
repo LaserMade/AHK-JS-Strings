@@ -31,7 +31,7 @@ class __javascript_strings {
 		EnumElements(&char) {
 			char := StrGet(StrPtr(this) + 2*pos, 1)
 			return ++pos <= len
-		}
+		}		
 		EnumIndexAndElements(&index, &char) {
 			char := StrGet(StrPtr(this) + 2*pos, 1), index := ++pos
 			return pos <= len
@@ -63,10 +63,15 @@ class __javascript_strings {
     static lastIndexOf(value, end_pos:=unset) => InStr(SubStr(this, 1, IsSet(end_pos) ? end_pos : unset), value,,, -1)
     
     ; replace() - Searches a string for a pattern, and returns a string where the first match is replaced
-    static replace(regex, replacement:='') => RegExReplace(this, regex, replacement)
-
+    static replace(needle, replacement:='', mode := 0) {
+        if !mode {
+            return StrReplace(this, needle, replacement, 1,, 1)
+        } else {
+            return RegExReplace(this, regex := needle, replacement)
+        }
+    }
     ; replaceAll() - Searches a string for a pattern, and returns a string where every match is replaced
-    static replaceAll(args*) => StrReplace(this, args*)
+    static replaceAll(args*) => RegExReplace(this, args*)
 
     ; search() - Searches a string for a value, or regular expression, and returns the index (position) of the match
     static search(regex) => RegExMatch(this, regex)

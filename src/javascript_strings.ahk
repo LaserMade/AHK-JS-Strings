@@ -1,3 +1,10 @@
+/***
+ * @author GroggyOtter
+ * @created 04/21/2024
+ * @contributors Laser_Made, Axelfublr, Descolada
+ * @contributions LaserMade on 08/02/2024 static methods (__Item & __Enum) along with at(), matchAll(), replaceAll(), valueOf() and respective descriptions
+ * @updated 08/02/2024
+ */
 class __javascript_strings {
     static __New() {
 		__ObjDefineProp := Object.Prototype.DefineProp
@@ -7,7 +14,7 @@ class __javascript_strings {
 		__ObjDefineProp(String.Prototype, "__Item", {get:(args*)=>__javascript_strings.__Item[args*]})
 		__ObjDefineProp(String.Prototype, "__Enum", {call:__javascript_strings.__Enum})   
     }
-    ;Added by Laser_Made with the credit to Axelfublr 10/2/2022
+    ;Added by Laser_Made 08/02/2024 (with credit to Axelfublr 10/2/2022)
     static __Item[args*] {
 		get {
 			if args.length = 2
@@ -25,7 +32,7 @@ class __javascript_strings {
 			}
 		}
 	}
-    ;Added by Laser_Made with the credit to Descolada 3/1/2023
+    ;Added by Laser_Made 08/02/2024 (with credit to Descolada 3/1/2023)
 	static __Enum(varCount) {
 		pos := 0, len := StrLen(this)
 		EnumElements(&char) {
@@ -44,7 +51,10 @@ class __javascript_strings {
 
     ; === Methods ===
     
-    ; at() - Returns the character at a specified index (position). Can search negative indices
+    /**
+     * @returns {String} the character at a specified index (position). Can search negative indices
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/at|String.at() on MDN}
+     */
     static at(index) => SubStr(this, index, 1)
     
     ; charAt() - Returns the character at a specified index (position)
@@ -70,7 +80,12 @@ class __javascript_strings {
             return RegExReplace(this, regex := needle, replacement)
         }
     }
-    ; replaceAll() - Searches a string for a pattern, and returns a string where every match is replaced
+
+    /**
+     * @description replaces all occurrences of a string, not just the first one. Does not mutate the original string.
+     * @returns {String} Searches a string for a pattern, and returns a string with every match having been replaced
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replaceAll|String.replaceAll() on MDN}
+     */
     static replaceAll(args*) => RegExReplace(this, args*)
 
     ; search() - Searches a string for a value, or regular expression, and returns the index (position) of the match
@@ -126,7 +141,11 @@ class __javascript_strings {
         return m
     }
 
-    ; matchAll() - Searches a string for a value, or regular expression, and returns the matches
+    /**
+     * @description Searches a string for a value, or regular expression, and returns the matches
+     * @returns {Object} The matched strings where every match is found
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll|String.matchAll() on MDN}
+     */
     static matchAll(RegEx, start := 1) {
         results := Array()
 		While (start := RegExMatch(this, RegEx, &match, start)) {
